@@ -33,7 +33,16 @@ class Booking implements Serializable {
 // MAIN APPLICATION CLASS
 // -----------------------------------------------------------
 public class SeatBookingUI2 extends JFrame implements ActionListener {
-    
+    // ...existing code...
+private String[] movies = {
+    " Prisoners", " Fight club", "Joker", " Memento", " Companion",
+    " Dark", " Weapons", " Witch", " Drishyam 3", " Deviation"
+};
+private int currentMovieIndex = 0;
+private JLabel movieLabel;
+private JButton nextMovieButton;
+// ...existing code...
+
     // --- UI Components ---
     private final char[] ROW_LETTERS = {'A', 'B', 'C', 'D', 'E', 'F'}; 
     private JTextField nameField, idField, seatField;
@@ -65,6 +74,8 @@ public class SeatBookingUI2 extends JFrame implements ActionListener {
 
         // --- UI BUILD ---
         add(createHeaderPanel(), BorderLayout.NORTH);
+        add(createMoviePanel(), BorderLayout.BEFORE_FIRST_LINE);
+        
         add(createSeatLayoutPanel(), BorderLayout.CENTER);
         add(createFormPanel(), BorderLayout.EAST);
         add(createFooterLabel(), BorderLayout.SOUTH);
@@ -74,6 +85,21 @@ public class SeatBookingUI2 extends JFrame implements ActionListener {
 
         setVisible(true);
     }
+    // ...existing code...
+private JPanel createMoviePanel() {
+    JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+    movieLabel = new JLabel("Now Showing: " + movies[currentMovieIndex]);
+    movieLabel.setFont(new Font("Arial", Font.BOLD, 16));
+    nextMovieButton = new JButton("Next Movie");
+    nextMovieButton.addActionListener(e -> {
+        currentMovieIndex = (currentMovieIndex + 1) % movies.length;
+        movieLabel.setText("Now Showing: " + movies[currentMovieIndex]);
+    });
+    panel.add(movieLabel);
+    panel.add(nextMovieButton);
+    return panel;
+}
+// ...existing code...
 
     // ==========================================================
     // UI COMPONENT CREATION METHODS
